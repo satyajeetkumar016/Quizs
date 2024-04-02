@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Quiz App</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background:black;
+  display: flex;
+  justify-content: center;
+}
+#timer{margin-top:250px;
+margin-left:230px;
+font-weight:bold;
+background-color:white;
+border-radius:50%;
+width:85px;
+height:85px;
+position:fixed;
+border:2px solid blue;
+}
+
+.container {
+  width: 450px;
+  padding: 20px;
+  margin-top: 80px;
+  background-color: #fff;
+  background-image: linear-gradient(to right,#D8B5FF,#1EAE98);
+  box-shadow: 0 0px 15px 0 rgba( 255, 255, 255, 0.5), 0 0px 15px 0 rgba( 255, 255, 255, 0.5);
+
+  border-radius: 20px;
+}
+h2{font-size:25px;
+position:fixed;
+color:white;
+border:5px solid cyan; 
+background-color:blue;
+color:lime; 
+text-shadow: 0 0 10px green, 2px 2px 10px yellow; 
+width:90%;
+text-align:center;}
+h1 {
+  text-align: center;
+ color:#F62227;
+ 
+}
+
+.question {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:black;
+font-size:17px
+}
+
+.options {
+  margin-bottom: 20px;
+  font-weight: bold;
+  color:blue;
+  font-size:18px
+}
+
+.option {
+  display:block;
+  margin-bottom: 10px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color:Magenta;
+  color:white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  font-weight:bold;
+}
+
+.button:hover {
+  background-color:Violet;
+}
+
+.result {
+  text-align:left;
+  margin-top:20px;
+  font-weight:medium;
+ 
+}
+
+.hide{
+  display:none;
+}
+
+input[type="radio"]{
+height:20px;
+width:20px;
+margin-top:10px;
+
+}
+
+.ans{color:red;}
+
+#result{background-color:black;
+text-align:center;
+color:white;
+border-radius:20px
+}
+
+#ins{color:Blue;
+font-weight:bold;}
+#rcont{font-size:20px;}
+#correct{color:lime;}
+#total{color:red;}
+#percentage{color:cyan;}
+#a2{text-align:center;
+font-weight:bold;}
+
+
+</style>
+
+</head>
+<body>
+<h2>Satyajeet's Quiz</h2>
+  <div class="container">
+    <h1>IQ Quiz</h1>
+   
+   <div id="timer">
+  <div style="margin-top:12px;margin-left:9px;">
+   Time left
+  </div>
+   <b><span id="countdowntimer" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;animation: my 1s infinite;color:red;font-size:30px;margin-left:20px;" >
+   180</span></b>
+   
+  </div>
+   
+    <div id="quiz"></div>
+    <div id="result" class="result"></div>
+    <button id="submit" class="button">Submit</button><br>
+    <button id="retry" onClick="window.location.reload();" class="button hide">Retry</button>
+    <button id="showAnswer" class="button hide">Show Answer</button><br><br><br>
+   <a href="index.html" style="text-decoration: none" >
+     <center>  <button id="mainpg" class="button hide" >
+     <font  size="5.5"color=" black">&#8962;</font> Go to home page</button></center>
+     
+     </a>
+  </div>
+  
+  <script>
+  const myTimeout = setTimeout(displayResult,180000);
+  var timeleft = 180;
+  var downloadTimer = setInterval(function(){
+  timeleft--;
+  document.getElementById("countdowntimer").textContent = timeleft;
+  if(timeleft <= 0)
+  clearInterval(downloadTimer);
+  },1000); 
+  
+  const quizData = [
+  {
+  question: 'If one shirt dries in one hour, how much time will it take for ten shirts to dry?',
+  options: ['1hr', '10hr', '5hr', '20hr'],
+  answer: '1hr',
+  },
+  {
+  question: 'How many eggs can a cock lay in a week?',
+  options: ['7', '0', '5', '3'],
+  answer: '0',
+  },
+  {
+  question: 'An electric train is moving north at 130mph, and the wind is blowing to the east at 10mph. Which way is the smoke going to blow?',
+  options: ['north', 'east', 'west', 'none'],
+  answer: '64',
+  },
+  {
+  question: 'A asked what is in middle of paris? Help B to answer question asked by A',
+  options: ['A', 'arrondissement', 'B', 'none'],
+  answer: 'A',
+  },
+  {
+  question: 'A doctor gives you 3 pills and tells you take 1 every half an hour, how long would it be before the pills have been taken?',
+  options: ['30 min','60 min','90 min','120 min'],
+  answer: '60 min',
+  },
+  {
+  question: 'How can one not sleep for eight days?',
+  options: [
+  'That is not possible',
+  'by sleeping at night',
+  'because he is dead',
+  'because he is not sleeping',
+   ],
+  answer: 'by sleeping at night',
+  },
+  {
+  question: 'I start with T end with T and have T in me. who am I?',
+  options: ['Teapot','Transparent','Tent','Twilight'],
+  answer: 'Teapot',
+  },
+  {
+  question: 'I am part of your body you can hold me in right hand but not in other. who am i ?',
+  options: ['left hand', 'right hand', 'left leg', 'right leg'],
+  answer: 'left hand',
+  },
+  {
+  question: 'when I get multiplied by any number, the sum of the figure is always me. What am I ?',
+  options: ['four', 'nine', 'twelve', 'ten'],
+  answer: 'nine',
+  },
+  {
+  question: 'Mother of my son have three brother and their old father has ha daughter who is she ?',
+  options: ['my mother', 'my wife', 'my sister', 'no raltion with me'],
+  answer: 'my wife',
+  },
+  ];
+  
+  const quizContainer = document.getElementById('quiz');
+  const resultContainer = document.getElementById('result');
+  const submitButton = document.getElementById('submit');
+  const retryButton = document.getElementById('retry');
+  const showAnswerButton = document.getElementById('showAnswer');
+  
+  let currentQuestion = 0;
+  let score = 0;8
+  let incorrectAnswers = [];
+  
+  function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [array[i], array[j]] = [array[j], array[i]];
+  }
+  }
+  
+  function displayQuestion() {
+  const questionData = quizData[currentQuestion];
+  
+  const questionElement = document.createElement('div');
+  questionElement.className = 'question';
+  questionElement.innerHTML = questionData.question;
+  
+  const optionsElement = document.createElement('div');
+  optionsElement.className = 'options';
+  
+  const shuffledOptions = [...questionData.options];
+  shuffleArray(shuffledOptions);
+  
+  for (let i = 0; i < shuffledOptions.length; i++) {
+  const option = document.createElement('label');
+  option.className = 'option';
+  
+  const radio = document.createElement('input');
+  radio.type = 'radio';
+  radio.name = 'quiz';
+  radio.value = shuffledOptions[i];
+  
+  const optionText = document.createTextNode(shuffledOptions[i]);
+  
+  option.appendChild(radio);
+  option.appendChild(optionText);
+  optionsElement.appendChild(option);
+  }
+  
+  quizContainer.innerHTML = '';
+  quizContainer.appendChild(questionElement);
+  quizContainer.appendChild(optionsElement);
+  }
+  
+  function checkAnswer() {
+  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  if (selectedOption) {
+  const answer = selectedOption.value;
+  if (answer === quizData[currentQuestion].answer) {
+  score++;
+  } else {
+  incorrectAnswers.push({
+  question: quizData[currentQuestion].question,
+  incorrectAnswer: answer,
+  correctAnswer: quizData[currentQuestion].answer,
+  });
+  }
+  currentQuestion++;
+  selectedOption.checked = false;
+  if (currentQuestion < quizData.length) {
+  displayQuestion();
+  } else {
+  displayResult();
+  }
+  }
+  }
+  
+  function displayResult() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'inline-block';
+  resultContainer.innerHTML = `<p id="rcont">You scored <strong id="correct"> ${score} </strong> out of <strong id="total"> ${quizData.length}.</Strong> <br>acuracy <strong id="percentage"> ${score/10*100}% </strong></p>`;
+  resultContainer.style.border='3px solid red';
+  document.getElementById("timer").style.display = 'none'
+  document.getElementById("mainpg").style.display = 'block'
+  }
+  
+  
+  
+  function showAnswer() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'none';
+  
+  let incorrectAnswersHtml = '';
+  for (let i = 0; i < incorrectAnswers.length; i++) {
+  incorrectAnswersHtml += `
+  <p>
+  <strong class="ans">Question:</strong> ${incorrectAnswers[i].question}<br>
+  <strong class="ans">Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
+  <strong class="ans">Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+  </p>
+  `;
+  }
+  
+  resultContainer.innerHTML = `
+  <p id="a2">You scored ${score} out of ${quizData.length} !</p>
+  <p id="ins">Incorrect Answers:</p>
+  ${incorrectAnswersHtml}
+  `;
+  resultContainer.style.border='none';
+  resultContainer.style.textAlign='left';
+  resultContainer.style.backgroundColor='transparent';
+  resultContainer.style.color='black';
+  }
+  
+  submitButton.addEventListener('click', checkAnswer);
+  
+  showAnswerButton.addEventListener('click', showAnswer);
+  
+  displayQuestion();
+  
+  
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Quiz App</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background:black;
+  display: flex;
+  justify-content: center;
+}
+#timer{margin-top:200px;
+margin-left:230px;
+font-weight:bold;
+background-color:white;
+border-radius:50%;
+width:85px;
+height:85px;
+position:fixed;
+border:2px solid blue;
+}
+
+.container {
+  width: 450px;
+  padding: 20px;
+  margin-top: 80px;
+  background-color: #fff;
+  background-image: linear-gradient(to right, cyan,lime);
+  box-shadow: 0 0px 15px 0 rgba( 255, 255, 255, 0.5), 0 0px 15px 0 rgba( 255, 255, 255, 0.5);
+
+  border-radius: 20px;
+}
+h2{font-size:25px;
+position:fixed;
+color:white;
+border:5px solid yellow; 
+background-color:red;
+color:cyan; 
+text-shadow: 0 0 10px green, 2px 2px 10px yellow; 
+width:90%;
+text-align:center;}
+h1 {
+  text-align: center;
+ color:white;
+ background: linear-gradient(to right,#753a88,#cc2b5e,#753a88,#cc2b5e); 
+ 
+ -webkit-text-fill-color: transparent; 
+ 
+ -webkit-background-clip: text;
+
+}
+
+.question {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:black;
+font-size:17px
+}
+
+.options {
+  margin-bottom: 20px;
+  font-weight: bold;
+  color:blue;
+  font-size:18px
+}
+
+.option {
+  display:block;
+  margin-bottom: 10px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color:brown;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  font-weight:bold;
+}
+
+.button:hover {
+  background-color:#F75D59;
+}
+
+.result {
+  text-align:left;
+  margin-top:20px;
+  font-weight:medium;
+ 
+}
+
+.hide{
+  display:none;
+}
+
+input[type="radio"]{
+height:20px;
+width:20px;
+margin-top:10px;
+
+}
+
+.ans{color:red;}
+
+#result{background-color:black;
+text-align:center;
+color:white;
+border-radius:20px
+}
+
+#ins{color:Blue;
+font-weight:bold;}
+#rcont{font-size:20px;}
+#correct{color:lime;}
+#total{color:red;}
+#percentage{color:cyan;}
+#a2{text-align:center;
+font-weight:bold;}
+
+
+</style>
+
+</head>
+<body>
+<h2>Satyajeet's Quiz</h2>
+  <div class="container">
+    <h1>Math Quiz</h1>
+   
+   <div id="timer">
+  <div style="margin-top:12px;margin-left:9px;">
+   Time left
+  </div>
+   <b><span id="countdowntimer" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;animation: my 1s infinite;color:red;font-size:30px;margin-left:20px;" >
+   240</span></b>
+   
+  </div>
+   
+    <div id="quiz"></div>
+    <div id="result" class="result"></div>
+    <button id="submit" class="button">Submit</button><br>
+    <button id="retry" onClick="window.location.reload();" class="button hide">Retry</button>
+    <button id="showAnswer" class="button hide">Show Answer</button><br><br><br>
+   <a href="index.html" style="text-decoration: none" >
+   <center>  <button id="mainpg" class="button hide" >
+   <font  size="5.5"color=" black">&#8962;</font> Go to home page</button></center>
+   
+    </a>
+  </div>
+  
+  <script>
+  const myTimeout = setTimeout(displayResult,180000);
+  var timeleft = 240;
+  var downloadTimer = setInterval(function(){
+  timeleft--;
+  document.getElementById("countdowntimer").textContent = timeleft;
+  if(timeleft <= 0)
+  clearInterval(downloadTimer);
+  },1000); 
+  
+  const quizData = [
+  {
+  question: 'Half of 2+2 ?',
+  options: ['1', '2', '3', '4'],
+  answer: '3',
+  },
+  {
+  question: 'What is answer when 60 is divided by its forth and added twelve part of 360?',
+  options: ['45', '16', '27', '34'],
+  answer: '16',
+  },
+  {
+  question: 'Which number should come next in this pattern: 8, 16, 32, ?',
+  options: ['76', '64', '24', '66'],
+  answer: '64',
+  },
+  {
+  question: 'When counting from 1–100, how many times will you come across the number 7?',
+  options: ['18', '19', '20', '21'],
+  answer: '20',
+  },
+  {
+  question: 'What is the average of the first 50 Natural Numbers?',
+  options: ['25','25.5','24.5','50'],
+  answer: 'Atom',
+  },
+  {
+  question: ' 2-2(6+6)7+8+1-1(90-10) = ?',
+  options: ['0', '8', '95', '56'],
+  answer: '95',
+  },
+  {
+  question: 'A number between 30 and 50 which is a common multiple of 6 and 8. What is the number when it is added to 45?',
+  options: ['48','93','89','64'],
+  answer: '93',
+  },
+  {
+  question: 'If x=10, x+y=20,  z+y=55. Then find the value of z ?',
+  options: ['25', '35', '45', '55'],
+  answer: '45',
+  },
+  {
+  question: 'Ashok has an equal number of one rupee, five rupees, and 10 rupees notes. If he has ₹320 with him, what will be the number of each rupee note?',
+  options: ['20','30','40','50'],
+  answer: '20',
+  },
+  {
+  question: 'claculate 8+88(8-8)-8 ?',
+  options: ['8', '88', '0', '-8'],
+  answer: '0',
+  },
+  ];
+  
+  const quizContainer = document.getElementById('quiz');
+  const resultContainer = document.getElementById('result');
+  const submitButton = document.getElementById('submit');
+  const retryButton = document.getElementById('retry');
+  const showAnswerButton = document.getElementById('showAnswer');
+  
+  let currentQuestion = 0;
+  let score = 0;8
+  let incorrectAnswers = [];
+  
+  function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [array[i], array[j]] = [array[j], array[i]];
+  }
+  }
+  
+  function displayQuestion() {
+  const questionData = quizData[currentQuestion];
+  
+  const questionElement = document.createElement('div');
+  questionElement.className = 'question';
+  questionElement.innerHTML = questionData.question;
+  
+  const optionsElement = document.createElement('div');
+  optionsElement.className = 'options';
+  
+  const shuffledOptions = [...questionData.options];
+  shuffleArray(shuffledOptions);
+  
+  for (let i = 0; i < shuffledOptions.length; i++) {
+  const option = document.createElement('label');
+  option.className = 'option';
+  
+  const radio = document.createElement('input');
+  radio.type = 'radio';
+  radio.name = 'quiz';
+  radio.value = shuffledOptions[i];
+  
+  const optionText = document.createTextNode(shuffledOptions[i]);
+  
+  option.appendChild(radio);
+  option.appendChild(optionText);
+  optionsElement.appendChild(option);
+  }
+  
+  quizContainer.innerHTML = '';
+  quizContainer.appendChild(questionElement);
+  quizContainer.appendChild(optionsElement);
+  }
+  
+  function checkAnswer() {
+  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  if (selectedOption) {
+  const answer = selectedOption.value;
+  if (answer === quizData[currentQuestion].answer) {
+  score++;
+  } else {
+  incorrectAnswers.push({
+  question: quizData[currentQuestion].question,
+  incorrectAnswer: answer,
+  correctAnswer: quizData[currentQuestion].answer,
+  });
+  }
+  currentQuestion++;
+  selectedOption.checked = false;
+  if (currentQuestion < quizData.length) {
+  displayQuestion();
+  } else {
+  displayResult();
+  }
+  }
+  }
+  
+  function displayResult() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'inline-block';
+  resultContainer.innerHTML = `<p id="rcont">You scored <strong id="correct"> ${score} </strong> out of <strong id="total"> ${quizData.length}.</Strong> <br>acuracy <strong id="percentage"> ${score/10*100}% </strong></p>`;
+  resultContainer.style.border='3px solid blue';
+  document.getElementById("timer").style.display = 'none'
+  document.getElementById("mainpg").style.display = 'block'
+  }
+  
+  
+  
+  function showAnswer() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'none';
+  
+  let incorrectAnswersHtml = '';
+  for (let i = 0; i < incorrectAnswers.length; i++) {
+  incorrectAnswersHtml += `
+  <p>
+  <strong class="ans">Question:</strong> ${incorrectAnswers[i].question}<br>
+  <strong class="ans">Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
+  <strong class="ans">Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+  </p>
+  `;
+  }
+  
+  resultContainer.innerHTML = `
+  <p id="a2">You scored ${score} out of ${quizData.length} !</p>
+  <p id="ins">Incorrect Answers:</p>
+  ${incorrectAnswersHtml}
+  `;
+  resultContainer.style.border='none';
+  resultContainer.style.textAlign='left';
+  resultContainer.style.backgroundColor='transparent';
+  resultContainer.style.color='black';
+  }
+  
+  submitButton.addEventListener('click', checkAnswer);
+  
+  showAnswerButton.addEventListener('click', showAnswer);
+  
+  displayQuestion();
+  
+  
+  </script>
+
+
+</body>
+</html>
