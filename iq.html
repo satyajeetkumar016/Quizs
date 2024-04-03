@@ -300,6 +300,9 @@ font-weight:bold;}
   showAnswerButton.style.display = 'inline-block';
   resultContainer.innerHTML = `<p id="rcont">You scored <strong id="correct"> ${score} </strong> out of <strong id="total"> ${quizData.length}.</Strong> <br>acuracy <strong id="percentage"> ${score/10*100}% </strong></p>`;
   resultContainer.style.border='3px solid red';
+  resultContainer.style.backgroundColor='black';
+  resultContainer.style.color='white';
+  resultContainer.style.textAlign='center';
   document.getElementById("timer").style.display = 'none'
   document.getElementById("mainpg").style.display = 'block'
   }
