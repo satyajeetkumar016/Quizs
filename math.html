@@ -157,7 +157,7 @@ font-weight:bold;}
   </div>
   
   <script>
-  const myTimeout = setTimeout(displayResult,180000);
+  const myTimeout = setTimeout(displayResult,240000);
   var timeleft = 240;
   var downloadTimer = setInterval(function(){
   timeleft--;
@@ -193,9 +193,9 @@ font-weight:bold;}
   answer: '24.5',
   },
   {
-  question: ' 2-2(6+6)7+8+1-1(90-10) = ?',
-  options: ['0', '8', '95', '56'],
-  answer: '95',
+  question: ' 2+(3+3)7+8+1-1(60-10)-3 = ?',
+  options: ['0', '3', '43', '56'],
+  answer: '0',
   },
   {
   question: 'A number between 30 and 50 which is a common multiple of 6 and 8. What is the number when it is added to 45?',
@@ -300,6 +300,9 @@ font-weight:bold;}
   showAnswerButton.style.display = 'inline-block';
   resultContainer.innerHTML = `<p id="rcont">You scored <strong id="correct"> ${score} </strong> out of <strong id="total"> ${quizData.length}.</Strong> <br>acuracy <strong id="percentage"> ${score/10*100}% </strong></p>`;
   resultContainer.style.border='3px solid blue';
+    resultContainer.style.backgroundColor='black';
+  resultContainer.style.color='white';
+  resultContainer.style.textAlign='center';
   document.getElementById("timer").style.display = 'none'
   document.getElementById("mainpg").style.display = 'block'
   }
